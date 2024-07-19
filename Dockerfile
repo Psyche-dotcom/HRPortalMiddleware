@@ -14,7 +14,7 @@ WORKDIR /build
 # Copy the project files and restore dependencies
 COPY ["HRPortal/HRPortal.csproj", "HRPortal/"]
 COPY ["HRPortal.Core/HRPortal.Core.csproj", "HRPortal.Core/"]
-COPY ["HRPortal.infrastructure/HRPortal.Infrastructure.csproj", "HRPortal.Infrastructure/"]
+COPY ["HRPortal.Infrastructure/HRPortal.Infrastructure.csproj", "HRPortal.Infrastructure/"]
 RUN dotnet restore "HRPortal/HRPortal.csproj"
 
 # Copy the rest of the files and build the project
