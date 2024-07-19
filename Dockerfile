@@ -19,7 +19,7 @@ RUN dotnet restore "HRPortal/HRPortal.csproj"
 
 # Copy the rest of the files and build the project
 COPY . .
-WORKDIR "/build/HRPortal.Api"
+WORKDIR "/build/HRPortal"
 RUN dotnet build "HRPortal.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish the project
