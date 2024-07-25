@@ -210,6 +210,61 @@ namespace HRPortal.Infrastructure.Service.Implementation
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
+                response.ErrorMessages = new List<string>() { "Error in getting all staff for company" };
+                response.StatusCode = 500;
+                response.DisplayMessage = "Error";
+                return response;
+            }
+        }
+        public async Task<ResponseDto<StaffInfo>> GetSingleStaff( string staffid,string companyid)
+        {
+            var response = new ResponseDto<StaffInfo>();
+            try
+            {
+
+              
+                var getStaff = await _staffRepo.GetQueryable()
+
+                    .Include(u => u.ContactInformation)
+                .Select(u => new StaffInfo
+                {
+                    Id = u.Id,
+                    CompanyId = u.CompanyId,
+                    Email = u.ContactInformation.Email,
+                    FullName = u.FullName,
+                    EmployeeId = u.EmployeeId,
+                    DateOfBirth = u.DateOfBirth,
+                    Department = u.Department,
+                    DisabilityStatus = u.DisabilityStatus,
+                    EmployeePhoto = u.EmployeePhoto,
+                    EmploymentStatus = u.EmploymentStatus,
+                    EmploymentType = u.EmploymentType,
+                    EndDate = u.EndDate,
+                    Ethnicity = u.Ethnicity,
+                    Gender = u.Gender,
+                    HomeAddress = u.ContactInformation.HomeAddress,
+                    HomePhone = u.ContactInformation.HomePhone,
+                    JobTitle = u.JobTitle,
+                    Manager = u.Manager,
+                    MaritalStatus = u.MaritalStatus,
+                    MobilePhone = u.ContactInformation.MobilePhone,
+                    Notes = u.Notes,
+                    SocialSecurityNumber = u.SocialSecurityNumber,
+                    StartDate = u.StartDate,
+                    VeteranStatus = u.VeteranStatus,
+                    WorkLocation = u.WorkLocation,
+                })
+                    .FirstOrDefaultAsync(u => u.CompanyId == companyid 
+                && u.Id == staffid);
+
+                response.StatusCode = 200;
+                response.DisplayMessage = "Success";
+                response.Result = getStaff;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
                 response.ErrorMessages = new List<string>() { "Error in getting staff for company" };
                 response.StatusCode = 500;
                 response.DisplayMessage = "Error";

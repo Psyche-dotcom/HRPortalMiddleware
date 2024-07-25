@@ -115,6 +115,38 @@ namespace HRPortal.Controllers
 
 
         }
+        [HttpGet("staff/single")]
+        public async Task<IActionResult> GetSingleStaff(string staffid)
+        {
+            var companyId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
+            if (companyId == null)
+            {
+                return BadRequest(new ResponseDto<string>()
+                {
+                    ErrorMessages = new List<string>() { "Invalid user" },
+                    DisplayMessage = "Error",
+                    StatusCode = 400,
+
+                });
+            }
+
+            var result = await _staffService.GetSingleStaff(staffid,companyId);
+
+            if (result.StatusCode == 200 || result.StatusCode == 201)
+            {
+                return Ok(result);
+            }
+            else if (result.StatusCode == 404)
+            {
+                return NotFound(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+
+
+        }
         [HttpDelete("staff/delete")]
         public async Task<IActionResult> DeleteStaff(string staffid)
         {
