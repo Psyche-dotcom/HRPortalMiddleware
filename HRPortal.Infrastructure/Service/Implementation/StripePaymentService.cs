@@ -45,8 +45,9 @@ namespace HRPortal.Infrastructure.Service.Implementation
             {
                 var options = new SessionCreateOptions
                 {
-                    SuccessUrl = $"https://HrPortal.vercel.app/confirm_payment?session_id={{CHECKOUT_SESSION_ID}}",
-                    CancelUrl = "https://HrPortal.vercel.app/",
+                    SuccessUrl = _configuration["StripeKey:redirect_url"]+
+                    $"?session_id={{CHECKOUT_SESSION_ID}}",
+                    CancelUrl = _configuration["StripeKey:redirect_url"],
                     LineItems = new List<SessionLineItemOptions>(),
                     Mode = "payment"
                 };
