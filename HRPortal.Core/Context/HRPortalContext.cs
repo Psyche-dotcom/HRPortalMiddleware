@@ -14,6 +14,7 @@ namespace HRPortal.Core.Context
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Payments> Payments { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
+        public DbSet<Labour> Labours { get; set; }
         public DbSet<WorkSchedule> WorkSchedules { get; set; }
         public DbSet<Compensation> Compensations { get; set; }
         public DbSet<BankingInfo> BankingInfos { get; set; }

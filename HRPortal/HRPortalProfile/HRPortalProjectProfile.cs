@@ -9,6 +9,8 @@ namespace HRPortal.HRPortalProfile
         public HRPortalProjectProfile()
         {
             CreateMap<Staff, AddStaffDto>().ReverseMap();
+            CreateMap<Labour, UpdateLabourDto>().ReverseMap();
+            CreateMap<Labour, AddLabourDto>().ReverseMap();
             CreateMap<ContactInfo, AddStaffDto>().ReverseMap();
             CreateMap<UpdateStaffDto, ContactInfo>().ReverseMap()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());

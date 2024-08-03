@@ -9,5 +9,6 @@ namespace HRPortal.Infrastructure.Service.Interface
         Task<ResponseDto<string>> DeleteStaff(string staffid);
         Task<ResponseDto<StaffInfo>> GetSingleStaff(string staffid, string companyid);
         Task<ResponseDto<string>> UpdateStaffinfo(UpdateStaffDto staffinfo);
+        Task<ResponseDto<string>> AssignStafftoLabour(string staffId, string labourid);
     }
 }

@@ -13,6 +13,7 @@ namespace HRPortal.Core.Entities
         public CompanySubscription Subscription { get; set; }
         public ConfirmEmailToken ConfirmEmailToken { get; set; }
         public ForgetPasswordToken ForgetPasswordToken { get; set; }
+        public IEnumerable<Labour> Labours { get; set; }
         public IEnumerable<Staff> Staffs { get; set; }
         public IEnumerable<Payments> Payments { get; set; }
     }

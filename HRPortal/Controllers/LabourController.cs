@@ -7,19 +7,19 @@ using System.IdentityModel.Tokens.Jwt;
 namespace HRPortal.Controllers
 {
     [Authorize(AuthenticationSchemes = "Bearer")]
-    [Route("api/company")]
+    [Route("api/labour")]
     [ApiController]
-    public class StaffController : ControllerBase
+    public class LabourController : ControllerBase
     {
-        private readonly IStaffService _staffService;
+        private readonly ILabourService _labourService;
 
-        public StaffController(IStaffService staffService)
+        public LabourController(ILabourService labourService)
         {
-            _staffService = staffService;
+            _labourService = labourService;
         }
-        
-        [HttpPost("staff/create")]
-        public async Task<IActionResult> createStaff(AddStaffDto staff)
+
+        [HttpPost("labour/create")]
+        public async Task<IActionResult> createLabour(AddLabourDto labour)
         {
             var companyId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
             if (companyId == null)
@@ -32,8 +32,8 @@ namespace HRPortal.Controllers
 
                 });
             }
-           
-            var result = await _staffService.AddStaff(staff, companyId);
+
+            var result = await _labourService.AddLabour(labour, companyId);
 
             if (result.StatusCode == 200 || result.StatusCode == 201)
             {
@@ -50,8 +50,8 @@ namespace HRPortal.Controllers
 
 
         }
-        [HttpPut("staff/info/update")]
-        public async Task<IActionResult> UpdateStaffInfo(UpdateStaffDto staff)
+        [HttpPut("labour/info/update")]
+        public async Task<IActionResult> UpdateLabourInfo(UpdateLabourDto labour)
         {
             var companyId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
             if (companyId == null)
@@ -65,7 +65,7 @@ namespace HRPortal.Controllers
                 });
             }
 
-            var result = await _staffService.UpdateStaffinfo(staff);
+            var result = await _labourService.UpdateLabourinfo(labour);
 
             if (result.StatusCode == 200 || result.StatusCode == 201)
             {
@@ -82,23 +82,10 @@ namespace HRPortal.Controllers
 
 
         }
-
-        [HttpPost("staff/assign")]
-        public async Task<IActionResult> AssignStaff(AssignStaffDto assign)
+        [HttpDelete("labour/delete")]
+        public async Task<IActionResult> DeleteStaff(string labourid)
         {
-            var companyId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
-            if (companyId == null)
-            {
-                return BadRequest(new ResponseDto<string>()
-                {
-                    ErrorMessages = new List<string>() { "Invalid user" },
-                    DisplayMessage = "Error",
-                    StatusCode = 400,
-
-                });
-            }
-
-            var result = await _staffService.AssignStafftoLabour(assign.StaffId, assign.LabourId);
+            var result = await _labourService.DeleteLabour(labourid);
 
             if (result.StatusCode == 200 || result.StatusCode == 201)
             {
@@ -115,10 +102,8 @@ namespace HRPortal.Controllers
 
 
         }
-
-
-        [HttpGet("staff/all")]
-        public async Task<IActionResult> GetStaff(int per_page_size, int page_number)
+        [HttpGet("labour/all")]
+        public async Task<IActionResult> GetALLLabour()
         {
             var companyId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
             if (companyId == null)
@@ -132,7 +117,7 @@ namespace HRPortal.Controllers
                 });
             }
 
-            var result = await _staffService.GetAllStaff(page_number, per_page_size,companyId);
+            var result = await _labourService.GetAllLabour(companyId);
 
             if (result.StatusCode == 200 || result.StatusCode == 201)
             {
@@ -147,10 +132,10 @@ namespace HRPortal.Controllers
                 return BadRequest(result);
             }
 
-
         }
-        [HttpGet("staff/single")]
-        public async Task<IActionResult> GetSingleStaff(string staffid)
+
+        [HttpGet("labour/single")]
+        public async Task<IActionResult> GetSingleLabour(string Labourid)
         {
             var companyId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
             if (companyId == null)
@@ -164,27 +149,7 @@ namespace HRPortal.Controllers
                 });
             }
 
-            var result = await _staffService.GetSingleStaff(staffid,companyId);
-
-            if (result.StatusCode == 200 || result.StatusCode == 201)
-            {
-                return Ok(result);
-            }
-            else if (result.StatusCode == 404)
-            {
-                return NotFound(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
-
-
-        }
-        [HttpDelete("staff/delete")]
-        public async Task<IActionResult> DeleteStaff(string staffid)
-        {
-            var result = await _staffService.DeleteStaff(staffid);
+            var result = await _labourService.GetSingleLabour(companyId, Labourid);
 
             if (result.StatusCode == 200 || result.StatusCode == 201)
             {

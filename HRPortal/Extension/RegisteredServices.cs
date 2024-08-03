@@ -17,6 +17,7 @@ namespace HRPortal.Extension
         {
             services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ILabourService, LabourService>();
             services.AddScoped(typeof(IHRPortalRepository<>), typeof(HRPortalRepository<>));
             services.AddScoped<IGenerateJwt, GenerateJwt>();
             services.AddScoped<IEmailServices, EmailService>();

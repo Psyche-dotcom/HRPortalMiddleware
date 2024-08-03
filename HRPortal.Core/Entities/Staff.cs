@@ -4,6 +4,8 @@
     {
         public string CompanyId { get; set; }
         public ApplicationCompany Company { get; set; }
+        public string? LabourId { get; set; }
+        public Labour Labour { get; set; }
         public int EmployeeId { get; set; }
         public string FullName { get; set; }
         public DateTime DateOfBirth { get; set; }

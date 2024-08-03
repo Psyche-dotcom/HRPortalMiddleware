@@ -3,6 +3,7 @@ using System;
 using HRPortal.Core.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HRPortal.Core.Migrations
 {
     [DbContext(typeof(HRPortalContext))]
-    partial class HRPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20240803131302_Labour Entity")]
+    partial class LabourEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -576,10 +579,6 @@ namespace HRPortal.Core.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -614,8 +613,6 @@ namespace HRPortal.Core.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("Labours");
                 });
@@ -1199,17 +1196,6 @@ namespace HRPortal.Core.Migrations
                     b.Navigation("company");
                 });
 
-            modelBuilder.Entity("HRPortal.Core.Entities.Labour", b =>
-                {
-                    b.HasOne("HRPortal.Core.Entities.ApplicationCompany", "Company")
-                        .WithMany("Labours")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("HRPortal.Core.Entities.PerformanceReview", b =>
                 {
                     b.HasOne("HRPortal.Core.Entities.Staff", "Staff")
@@ -1229,13 +1215,11 @@ namespace HRPortal.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HRPortal.Core.Entities.Labour", "Labour")
+                    b.HasOne("HRPortal.Core.Entities.Labour", null)
                         .WithMany("Staffs")
                         .HasForeignKey("LabourId");
 
                     b.Navigation("Company");
-
-                    b.Navigation("Labour");
                 });
 
             modelBuilder.Entity("HRPortal.Core.Entities.TaxInformation", b =>
@@ -1340,8 +1324,6 @@ namespace HRPortal.Core.Migrations
 
                     b.Navigation("ForgetPasswordToken")
                         .IsRequired();
-
-                    b.Navigation("Labours");
 
                     b.Navigation("Payments");
 

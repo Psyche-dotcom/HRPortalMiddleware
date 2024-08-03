@@ -30,5 +30,14 @@ namespace HRPortal.Core.DTO
         public string? VeteranStatus { get; set; }
         public string? DisabilityStatus { get; set; }
         public string? Notes { get; set; }
+
+
+        public string? LabourName { get; set; }
+        public string? LabourCustomer { get; set; }
+        public string? LabourLCAT { get; set; }
+        public string? LabourWorkSite { get; set; }
+        public string? LabourChargeCode { get; set; }
+
+
     }
 }
