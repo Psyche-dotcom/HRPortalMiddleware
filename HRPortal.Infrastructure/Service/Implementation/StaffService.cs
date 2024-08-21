@@ -121,18 +121,12 @@ namespace HRPortal.Infrastructure.Service.Implementation
                 {
                     findContactinfo.MobilePhone = staffinfo.MobilePhone;
                 }
-                if (staffinfo.HomePhone != null)
-                {
-                    findContactinfo.HomePhone = staffinfo.HomePhone;
-                }
+            
                 if (staffinfo.Email != null)
                 {
                     findContactinfo.Email = staffinfo.Email;
                 }
-                if (staffinfo.HomeAddress != null)
-                {
-                    findContactinfo.HomeAddress = staffinfo.HomeAddress;
-                }
+               
                 _contactRepo.Update(findContactinfo);
                 _staffRepo.Update(mapUpdateDetails);
                 await _staffRepo.SaveChanges();
@@ -207,13 +201,7 @@ namespace HRPortal.Infrastructure.Service.Implementation
                         Id = u.Id,
                         CompanyId = u.CompanyId,
                         Email = u.ContactInformation.Email,
-                        FullName = u.FullName,
-                        EmployeeId = u.EmployeeId,
-                        DateOfBirth = u.DateOfBirth,
-                    
-                        Gender = u.Gender,
-                        HomeAddress = u.ContactInformation.HomeAddress,
-                        HomePhone = u.ContactInformation.HomePhone,
+                     
                      
                         MobilePhone = u.ContactInformation.MobilePhone,
                    
@@ -265,12 +253,7 @@ namespace HRPortal.Infrastructure.Service.Implementation
                     CompanyId = u.CompanyId,
                     Email = u.ContactInformation.Email,
                     FullName = u.FullName,
-                    EmployeeId = u.EmployeeId,
-                    DateOfBirth = u.DateOfBirth,
-                  
-                    Gender = u.Gender,
-                    HomeAddress = u.ContactInformation.HomeAddress,
-                    HomePhone = u.ContactInformation.HomePhone,
+                
                    
                     MobilePhone = u.ContactInformation.MobilePhone,
               
